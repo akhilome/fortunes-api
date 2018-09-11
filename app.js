@@ -19,6 +19,14 @@ app.get('/fortunes/:id', (req, res) => {
   res.json(fortunes.find(fortune => fortune.id == req.params.id));
 });
 
+
+// DRYing things up!
+const writeFortunes = (json) => {
+  fs.writeFile('./data/fortunes.json', JSON.stringify(json), err => {
+    console.log(err)
+  });
+}
+
 app.post('/fortunes', (req, res) => {
   // Get data out of request body
   const { message, luckyNumber, spiritAnimal } = req.body;
@@ -32,11 +40,23 @@ app.post('/fortunes', (req, res) => {
     spiritAnimal
   });
   // Update the 'database'
-  fs.writeFile('./data/fortunes.json', JSON.stringify(newFortunes), err => {
-    console.log(err)
-  });
+  writeFortunes(newFortunes);
 
   res.json(newFortunes);
+});
+
+app.put('/fortunes/:id', (req, res) => {
+  const { id } = req.params;
+  // Get the fortune to be updated based on the provide id
+  const oldFortune = fortunes.find(fortune => fortune.id == id);
+  // Update the fortune with provided data
+  ['message', 'luckyNumber', 'spiritAnimal'].forEach(key => {
+    if (req.body[key]) oldFortune[key] = req.body[key];
+  });
+  // update the 'db'
+  writeFortunes(fortunes);
+
+  res.json(fortunes);
 });
 
 module.exports = app;
