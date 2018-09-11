@@ -25,19 +25,17 @@ app.post('/fortunes', (req, res) => {
   // Get all ids of every fortune already in db
   const fortuneIds = fortunes.map(fortune => fortune.id);
   // Make new fortune based on data sent by user
-  const fortune = { 
+  const newFortunes = fortunes.concat({ 
     id: (fortuneIds.length ? Math.max(...fortuneIds) : 0) + 1,
-    message: message,
-    luckyNumber: luckyNumber, 
-    spiritAnimal: spiritAnimal
-  };
-
-  const newFortunes = fortunes.concat(fortune);
+    message,
+    luckyNumber, 
+    spiritAnimal
+  });
   // Update the 'database'
   fs.writeFile('./data/fortunes.json', JSON.stringify(newFortunes), err => {
     console.log(err)
   });
-  
+
   res.json(newFortunes);
 });
 
