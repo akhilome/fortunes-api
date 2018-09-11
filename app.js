@@ -59,4 +59,14 @@ app.put('/fortunes/:id', (req, res) => {
   res.json(fortunes);
 });
 
+app.delete('/fortunes/:id', (req, res) => {
+  const { id } = req.params;
+  // Filter db, removing the passed id
+  const newFortunes = fortunes.filter(fortune => fortune.id != id);
+  // update db
+  writeFortunes(newFortunes);
+
+  res.json(newFortunes);
+});
+
 module.exports = app;
