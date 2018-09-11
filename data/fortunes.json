@@ -2,19 +2,19 @@
   {
     "id": 1,
     "message": "Love is around the corner.",
-    "lucky-number": 12,
-    "spirit-animal": "Dog"
+    "luckyNumber": 12,
+    "spiritAnimal": "Dog"
   },
   {
     "id": 2,
     "message": "You will find a great treasure.",
-    "lucky-number": 15,
-    "spirit-animal": "Lion"
+    "luckyNumber": 15,
+    "spiritAnimal": "Lion"
   },
   {
     "id": 3,
     "message": "One person would give you great advice.",
-    "lucky-number": 30,
-    "spirit-animal": "Bear"
+    "luckyNumber": 30,
+    "spiritAnimal": "Bear"
   }
 ]
